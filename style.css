@@ -1268,6 +1268,12 @@ body.nav-open { overflow: hidden; }
 .prose h2 { margin-top: 0; }
 .prose p { font-size: 1.04rem; }
 
+/* Unterpunkte in den Rechtstexten: brauchen Luft nach oben, sonst kleben sie
+   am vorangehenden Absatz. Das erste h3 direkt unter einem h2 nicht doppelt
+   abrücken. */
+.prose h3 { margin-top: var(--space-5); }
+.prose h2 + h3 { margin-top: 0; }
+
 .check-list { display: grid; gap: 12px; margin: var(--space-3) 0; }
 .check-list li {
   position: relative;
