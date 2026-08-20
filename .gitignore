@@ -1,0 +1,24 @@
+# Public-by-Design (Lesson 11.07.2026, Taxi-Dawit-Vorfall):
+# Dieses Repo kann fuer die Kundenvorschau temporaer public werden.
+# Alles hier gelistete darf NIE im Repo landen - auch nicht in der Historie.
+
+# Interne Projektdateien
+CLAUDE.md
+UEBERGABE-KUNDE.md
+ADS-AKTIVIERUNG.md
+*.notizen.md
+
+# Skills (fremdlizenziert, nicht zur Veroeffentlichung)
+.agents/
+.claude/
+
+# Kunden-Rohmaterial (Namensentwurf, spaeter Fotos/Visitenkarten)
+Bilder/
+
+# Secrets
+.env*
+
+# System
+Thumbs.db
+desktop.ini
+.DS_Store

@@ -1,0 +1,190 @@
+/* ==========================================================================
+   Rümpel Sauerstein – Variante 2: animierte Einsatzszene im Hero
+   Wird NACH style.css geladen. Muster: Taxi-Dawit variante-2
+   (Inline-SVG + CSS-Keyframes + Maus-Spotlight, keine externen Requests).
+   ========================================================================== */
+
+/* Hero zweispaltig: Text links, Szene rechts */
+.hero--v2 .hero__grid {
+  grid-template-columns: minmax(0, 10fr) minmax(0, 9fr);
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .hero--v2 .hero__grid { grid-template-columns: 1fr; }
+}
+
+.hero--v2 h1 { font-size: clamp(2.7rem, 5.4vw, 4.4rem); }
+
+/* Bühne */
+.hero-scene {
+  position: relative;
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow-hard);
+  overflow: hidden;
+  background: #BCE0EE;
+}
+
+.hero-scene__svg { display: block; width: 100%; height: auto; }
+
+/* Maus-Spotlight: warmes Licht folgt dem Cursor (JS setzt --spot-x/--spot-y) */
+.hero-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    230px circle at var(--spot-x, 70%) var(--spot-y, 30%),
+    rgba(255, 214, 110, .22),
+    transparent 72%
+  );
+}
+
+@media (max-width: 768px) {
+  .hero-scene::after { display: none; } /* kein Cursor auf Touch-Geräten */
+}
+
+/* ---------- Szene: Himmel & Wetter ---------------------------------------- */
+
+/* Sonnenstrahlen rotieren langsam */
+.e2-sunrays {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: e2Rays 46s linear infinite;
+}
+
+@keyframes e2Rays {
+  to { transform: rotate(360deg); }
+}
+
+/* Wolken ziehen über den Himmel */
+.e2-cloud--1 { animation: e2Cloud 52s linear infinite; }
+.e2-cloud--2 { animation: e2Cloud 74s linear infinite; animation-delay: -30s; }
+
+@keyframes e2Cloud {
+  0%   { transform: translateX(-180px); }
+  100% { transform: translateX(700px); }
+}
+
+/* Vogel fliegt quer, mit leichtem Auf und Ab */
+.e2-bird {
+  animation: e2Bird 21s linear infinite;
+}
+
+@keyframes e2Bird {
+  0%   { transform: translate(-40px, 96px); }
+  25%  { transform: translate(160px, 74px); }
+  50%  { transform: translate(360px, 92px); }
+  75%  { transform: translate(520px, 70px); }
+  100% { transform: translate(700px, 88px); }
+}
+
+/* Flügelschlag */
+.e2-bird path {
+  animation: e2Flap .5s ease-in-out infinite alternate;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes e2Flap {
+  from { transform: scaleY(1); }
+  to   { transform: scaleY(.55); }
+}
+
+/* ---------- Szene: Haus ---------------------------------------------------- */
+
+/* Fenster erlöschen nacheinander: Zimmer für Zimmer geräumt */
+.e2-win {
+  animation: e2Window 12s ease-in-out infinite;
+}
+.e2-win--2 { animation-delay: 3s; }
+.e2-win--3 { animation-delay: 6s; }
+.e2-win--4 { animation-delay: 9s; }
+
+@keyframes e2Window {
+  0%, 30%       { opacity: 1; }
+  38%, 86%      { opacity: 0; }
+  94%, 100%     { opacity: 1; }
+}
+
+/* Staub an der offenen Tür */
+.e2-dust {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: e2Dust 3.4s ease-out infinite;
+}
+.e2-dust--2 { animation-delay: 1.7s; }
+
+@keyframes e2Dust {
+  0%   { opacity: 0; transform: translateY(0) scale(.5); }
+  25%  { opacity: .5; }
+  100% { opacity: 0; transform: translateY(-26px) scale(1.25); }
+}
+
+/* ---------- Szene: Kartons wandern in den Transporter ---------------------- */
+
+/* Pfad: Haustür (0,0) -> Rampe -> Laderaum (ca. 235px weiter rechts) */
+.e2-box { animation: e2Box 5.2s cubic-bezier(.45, .05, .55, .95) infinite; }
+.e2-box--2 { animation-delay: 1.75s; }
+.e2-box--3 { animation-delay: 3.5s; }
+
+@keyframes e2Box {
+  0%        { transform: translate(0, 0); opacity: 0; }
+  6%        { opacity: 1; }
+  30%       { transform: translate(82px, -6px); }
+  55%       { transform: translate(160px, 2px); }
+  78%       { transform: translate(212px, -16px); opacity: 1; }
+  90%, 100% { transform: translate(238px, -22px); opacity: 0; }
+}
+
+/* Traggang: Karton wippt beim Wandern */
+.e2-box > g {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: e2Bob .6s ease-in-out infinite alternate;
+}
+
+@keyframes e2Bob {
+  from { transform: translateY(0) rotate(-2deg); }
+  to   { transform: translateY(-4px) rotate(2deg); }
+}
+
+/* ---------- Szene: Transporter --------------------------------------------- */
+
+/* Warnblinker beim Beladen */
+.e2-blinker {
+  animation: e2Blink 1.1s steps(2, jump-none) infinite;
+}
+
+@keyframes e2Blink {
+  0%   { opacity: 1; }
+  100% { opacity: .15; }
+}
+
+/* Auspuff-Wölkchen (Motor läuft im Standgas) */
+.e2-exhaust {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: e2Exhaust 2.8s ease-out infinite;
+}
+
+@keyframes e2Exhaust {
+  0%   { opacity: 0; transform: translate(0, 0) scale(.4); }
+  20%  { opacity: .35; }
+  100% { opacity: 0; transform: translate(14px, -20px) scale(1.3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .e2-sunrays, .e2-cloud--1, .e2-cloud--2, .e2-bird, .e2-bird path,
+  .e2-win, .e2-dust, .e2-box, .e2-box > g, .e2-blinker, .e2-exhaust {
+    animation: none;
+  }
+  .e2-win { opacity: 1; }
+  .e2-dust, .e2-exhaust { opacity: 0; }
+  /* Kartons ohne Animation: einer sichtbar auf halbem Weg, Rest aus */
+  .e2-box { opacity: 0; }
+  .e2-box--2 { opacity: 1; transform: translate(120px, 0); }
+}
+
+/* Stempel sitzt bei der kompakteren V2-Headline etwas tiefer */
+.hero--v2 .stamp { top: -16px; }

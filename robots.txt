@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO: Domain eintragen, sobald sie feststeht
+Sitemap: https://example.de/sitemap.xml

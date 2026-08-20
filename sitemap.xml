@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TODO: example.de durch die echte Domain ersetzen (alle URLs) -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://example.de/</loc><priority>1.0</priority></url>
+  <url><loc>https://example.de/haushaltsaufloesung.html</loc><priority>0.8</priority></url>
+  <url><loc>https://example.de/entruempelung.html</loc><priority>0.8</priority></url>
+  <url><loc>https://example.de/betriebsaufloesung.html</loc><priority>0.8</priority></url>
+  <url><loc>https://example.de/team.html</loc><priority>0.5</priority></url>
+</urlset>
